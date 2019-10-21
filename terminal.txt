@@ -1,0 +1,678 @@
+caroline@tesla:~$ ls
+'Área de Trabalho'   Modelos                      Vídeos
+ Documentos          Música                       waproject-site
+ Downloads           portuguese_word_embeddings   waproject-site-admin
+ examples.desktop    Público                      waproject-site-api
+ Imagens             snap
+caroline@tesla:~$ cd portuguese_word_embeddings/
+caroline@tesla:~/portuguese_word_embeddings$ ls
+analogies     cbow_s50.txt  LICENSE           requirements.txt        -t
+analogies.py  evaluate.py   preprocessing.py  sentence_similarity
+--br          --lang        README.md         sentence_similarity.py
+caroline@tesla:~/portuguese_word_embeddings$ pip install gensim==2.0.0
+Collecting gensim==2.0.0
+Collecting scipy>=0.7.0 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/1d/f6/7c16d60aeb3694e5611976cb4f1eaf1c6b7f1e7c55771d691013405a02ea/scipy-1.2.2-cp27-cp27mu-manylinux1_x86_64.whl
+Collecting six>=1.5.0 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/73/fb/00a976f728d0d1fecfe898238ce23f502a721c0ac0ecfedb80e0d88c64e9/six-1.12.0-py2.py3-none-any.whl
+Collecting numpy>=1.3 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/1f/c7/198496417c9c2f6226616cff7dedf2115a4f4d0276613bab842ec8ac1e23/numpy-1.16.4-cp27-cp27mu-manylinux1_x86_64.whl
+Collecting smart-open>=1.2.1 (from gensim==2.0.0)
+Collecting bz2file (from smart-open>=1.2.1->gensim==2.0.0)
+Collecting boto>=2.32 (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/23/10/c0b78c27298029e4454a472a1919bde20cb182dab1662cec7f2ca1dcc523/boto-2.49.0-py2.py3-none-any.whl
+Collecting requests (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/51/bd/23c926cd341ea6b7dd0b2a00aba99ae0f828be89d72b2190f27c11d4b7fb/requests-2.22.0-py2.py3-none-any.whl
+Collecting boto3 (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/df/2a/e77374950632d42b36d62a74ec15e56dc1ffabab15be6fc18395d9136b6d/boto3-1.9.197-py2.py3-none-any.whl
+Collecting urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/e6/60/247f23a7121ae632d62811ba7f273d0e58972d75e58a94d329d51550a47d/urllib3-1.25.3-py2.py3-none-any.whl
+Collecting certifi>=2017.4.17 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/69/1b/b853c7a9d4f6a6d00749e94eb6f3a041e342a885b87340b79c1ef73e3a78/certifi-2019.6.16-py2.py3-none-any.whl
+Collecting chardet<3.1.0,>=3.0.2 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl
+Collecting idna<2.9,>=2.5 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/14/2c/cd551d81dbe15200be1cf41cd03869a46fe7226e7450af7a6545bfc474c9/idna-2.8-py2.py3-none-any.whl
+Collecting jmespath<1.0.0,>=0.7.1 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/83/94/7179c3832a6d45b266ddb2aac329e101367fbdb11f425f13771d27f225bb/jmespath-0.9.4-py2.py3-none-any.whl
+Collecting botocore<1.13.0,>=1.12.197 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/7e/3e/ba5f2c7f1ca24c128401efd364c9a5231f411ec83328659c9a0321d82d45/botocore-1.12.197-py2.py3-none-any.whl
+Collecting s3transfer<0.3.0,>=0.2.0 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/16/8a/1fc3dba0c4923c2a76e1ff0d52b305c44606da63f718d14d3231e21c51b0/s3transfer-0.2.1-py2.py3-none-any.whl
+Collecting docutils<0.15,>=0.10 (from botocore<1.13.0,>=1.12.197->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/50/09/c53398e0005b11f7ffb27b7aa720c617aba53be4fb4f4f3f06b9b5c60f28/docutils-0.14-py2-none-any.whl
+Collecting python-dateutil<3.0.0,>=2.1; python_version >= "2.7" (from botocore<1.13.0,>=1.12.197->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/41/17/c62faccbfbd163c7f57f3844689e3a78bae1f403648a6afb1d0866d87fbb/python_dateutil-2.8.0-py2.py3-none-any.whl
+Collecting futures<4.0.0,>=2.2.0; python_version == "2.6" or python_version == "2.7" (from s3transfer<0.3.0,>=0.2.0->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/d8/a6/f46ae3f1da0cd4361c344888f59ec2f5785e69c872e175a748ef6071cdb5/futures-3.3.0-py2-none-any.whl
+Installing collected packages: numpy, scipy, six, bz2file, boto, urllib3, certifi, chardet, idna, requests, jmespath, docutils, python-dateutil, botocore, futures, s3transfer, boto3, smart-open, gensim
+Successfully installed boto-2.49.0 boto3-1.9.197 botocore-1.12.197 bz2file-0.98 certifi-2019.6.16 chardet-3.0.4 docutils-0.14 futures-3.3.0 gensim-2.3.0 idna-2.8 jmespath-0.9.4 numpy-1.16.4 python-dateutil-2.8.0 requests-2.22.0 s3transfer-0.2.1 scipy-1.2.2 six-1.12.0 smart-open-1.8.4 urllib3-1.25.3
+caroline@tesla:~/portuguese_word_embeddings$ python
+Python 2.7.15+ (default, Nov 27 2018, 23:36:35) 
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from gensim.models import KeyedVectors
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/__init__.py", line 6, in <module>
+    from gensim import parsing, matutils, interfaces, corpora, models, similarities, summarization
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/parsing/__init__.py", line 7, in <module>
+    from .preprocessing import *
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/parsing/preprocessing.py", line 10, in <module>
+    from gensim import utils
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/utils.py", line 40, in <module>
+    import numpy as np
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/core/__init__.py", line 91, in <module>
+    raise ImportError(msg.format(path))
+ImportError: Something is wrong with the numpy installation. While importing we detected an older version of numpy in ['/home/caroline/.local/lib/python2.7/site-packages/numpy']. One method of fixing this is to repeatedly uninstall numpy until none is found, then reinstall this version.
+>>> 
+KeyboardInterrupt
+>>> quit()
+caroline@tesla:~/portuguese_word_embeddings$ pip install numpy
+Collecting numpy
+  Using cached https://files.pythonhosted.org/packages/1f/c7/198496417c9c2f6226616cff7dedf2115a4f4d0276613bab842ec8ac1e23/numpy-1.16.4-cp27-cp27mu-manylinux1_x86_64.whl
+Installing collected packages: numpy
+Successfully installed numpy-1.16.4
+caroline@tesla:~/portuguese_word_embeddings$ python
+Python 2.7.15+ (default, Nov 27 2018, 23:36:35) 
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> from gensim.models import KeyedVectors
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/__init__.py", line 6, in <module>
+    from gensim import parsing, matutils, interfaces, corpora, models, similarities, summarization
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/parsing/__init__.py", line 7, in <module>
+    from .preprocessing import *
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/parsing/preprocessing.py", line 10, in <module>
+    from gensim import utils
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/utils.py", line 40, in <module>
+    import numpy as np
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/core/__init__.py", line 91, in <module>
+    raise ImportError(msg.format(path))
+ImportError: Something is wrong with the numpy installation. While importing we detected an older version of numpy in ['/home/caroline/.local/lib/python2.7/site-packages/numpy']. One method of fixing this is to repeatedly uninstall numpy until none is found, then reinstall this version.
+>>> quit()
+caroline@tesla:~/portuguese_word_embeddings$ sudo apt install python-numpy
+[sudo] senha para caroline: 
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+The following additional packages will be installed:
+  libblas3 libgfortran4 liblapack3
+Pacotes sugeridos:
+  gfortran python-nose python-numpy-dbg python-numpy-doc
+Os NOVOS pacotes a seguir serão instalados:
+  libblas3 libgfortran4 liblapack3 python-numpy
+0 pacotes atualizados, 4 pacotes novos instalados, 0 a serem removidos e 1 não atualizados.
+1 pacotes não totalmente instalados ou removidos.
+É preciso baixar 4.682 kB de arquivos.
+Depois desta operação, 20,4 MB adicionais de espaço em disco serão usados.
+Você quer continuar? [S/n] s
+Obter:1 http://br.archive.ubuntu.com/ubuntu bionic/main amd64 libblas3 amd64 3.7.1-4ubuntu1 [140 kB]
+Obter:2 http://br.archive.ubuntu.com/ubuntu bionic-updates/main amd64 libgfortran4 amd64 7.4.0-1ubuntu1~18.04.1 [492 kB]
+Obter:3 http://br.archive.ubuntu.com/ubuntu bionic/main amd64 liblapack3 amd64 3.7.1-4ubuntu1 [2.112 kB]
+Obter:4 http://br.archive.ubuntu.com/ubuntu bionic/main amd64 python-numpy amd64 1:1.13.3-2ubuntu1 [1.938 kB]
+Baixados 4.682 kB em 1s (3.957 kB/s)    
+A seleccionar pacote anteriormente não seleccionado libblas3:amd64.
+(Lendo banco de dados ... 185354 ficheiros e directórios actualmente instalados.)
+A preparar para desempacotar .../libblas3_3.7.1-4ubuntu1_amd64.deb ...
+A descompactar libblas3:amd64 (3.7.1-4ubuntu1) ...
+A seleccionar pacote anteriormente não seleccionado libgfortran4:amd64.
+A preparar para desempacotar .../libgfortran4_7.4.0-1ubuntu1~18.04.1_amd64.deb ...
+A descompactar libgfortran4:amd64 (7.4.0-1ubuntu1~18.04.1) ...
+A seleccionar pacote anteriormente não seleccionado liblapack3:amd64.
+A preparar para desempacotar .../liblapack3_3.7.1-4ubuntu1_amd64.deb ...
+A descompactar liblapack3:amd64 (3.7.1-4ubuntu1) ...
+A seleccionar pacote anteriormente não seleccionado python-numpy.
+A preparar para desempacotar .../python-numpy_1%3a1.13.3-2ubuntu1_amd64.deb ...
+A descompactar python-numpy (1:1.13.3-2ubuntu1) ...
+Configurando libgfortran4:amd64 (7.4.0-1ubuntu1~18.04.1) ...
+Configurando libblas3:amd64 (3.7.1-4ubuntu1) ...
+update-alternatives: a usar /usr/lib/x86_64-linux-gnu/blas/libblas.so.3 para disponibilizar /usr/lib/x86_64-linux-gnu/libblas.so.3 (libblas.so.3-x86_64-linux-gnu) em modo auto
+A processar 'triggers' para libc-bin (2.27-3ubuntu1) ...
+A processar 'triggers' para man-db (2.8.3-2ubuntu0.1) ...
+Configurando javascript-common (11) ...
+dpkg: erro ao processar o pacote javascript-common (--configure):
+ installed javascript-common package post-installation script subprocess returned error exit status 1
+Configurando liblapack3:amd64 (3.7.1-4ubuntu1) ...
+update-alternatives: a usar /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3 para disponibilizar /usr/lib/x86_64-linux-gnu/liblapack.so.3 (liblapack.so.3-x86_64-linux-gnu) em modo auto
+Configurando python-numpy (1:1.13.3-2ubuntu1) ...
+Erros foram encontrados durante o processamento de:
+ javascript-common
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+caroline@tesla:~/portuguese_word_embeddings$ python
+Python 2.7.15+ (default, Nov 27 2018, 23:36:35) 
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/core/__init__.py", line 91, in <module>
+    raise ImportError(msg.format(path))
+ImportError: Something is wrong with the numpy installation. While importing we detected an older version of numpy in ['/home/caroline/.local/lib/python2.7/site-packages/numpy']. One method of fixing this is to repeatedly uninstall numpy until none is found, then reinstall this version.
+>>> quit()
+caroline@tesla:~/portuguese_word_embeddings$ sudo apt install python-numpy
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+python-numpy is already the newest version (1:1.13.3-2ubuntu1).
+0 pacotes atualizados, 0 pacotes novos instalados, 0 a serem removidos e 1 não atualizados.
+1 pacotes não totalmente instalados ou removidos.
+Depois desta operação, 0 B adicionais de espaço em disco serão usados.
+Você quer continuar? [S/n] s
+Configurando javascript-common (11) ...
+dpkg: erro ao processar o pacote javascript-common (--configure):
+ installed javascript-common package post-installation script subprocess returned error exit status 1
+Erros foram encontrados durante o processamento de:
+ javascript-common
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+caroline@tesla:~/portuguese_word_embeddings$ apt-get remove javascript-common
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+caroline@tesla:~/portuguese_word_embeddings$ apt-get --purge remove javascript-common
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+caroline@tesla:~/portuguese_word_embeddings$ cd ..
+caroline@tesla:~$ apt-get --purge remove javascript-common
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+caroline@tesla:~$ apt-get remove javascript-common
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+caroline@tesla:~$ cd ..
+caroline@tesla:/home$ cd ..
+caroline@tesla:/$ ls
+bin    dev   initrd.img      lib64       mnt   root  snap      sys  var
+boot   etc   initrd.img.old  lost+found  opt   run   srv       tmp  vmlinuz
+cdrom  home  lib             media       proc  sbin  swapfile  usr
+caroline@tesla:/$ cd root
+bash: cd: root: Permissão negada
+caroline@tesla:/$ ls
+bin    dev   initrd.img      lib64       mnt   root  snap      sys  var
+boot   etc   initrd.img.old  lost+found  opt   run   srv       tmp  vmlinuz
+cdrom  home  lib             media       proc  sbin  swapfile  usr
+caroline@tesla:/$ cd home/
+caroline@tesla:/home$ ls
+caroline
+caroline@tesla:/home$ cd caroline/
+caroline@tesla:~$ ls
+'Área de Trabalho'   Modelos                      Vídeos
+ Documentos          Música                       waproject-site
+ Downloads           portuguese_word_embeddings   waproject-site-admin
+ examples.desktop    Público                      waproject-site-api
+ Imagens             snap
+caroline@tesla:~$ sudo apt-get remove javascript-common
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+Os pacotes a seguir serão REMOVIDOS:
+  javascript-common
+0 pacotes atualizados, 0 pacotes novos instalados, 1 a serem removidos e 1 não atualizados.
+1 pacotes não totalmente instalados ou removidos.
+Depois desta operação, 69,6 kB de espaço em disco serão liberados.
+Você quer continuar? [S/n] s
+(Lendo banco de dados ... 185757 ficheiros e directórios actualmente instalados.)
+A remover javascript-common (11) ...
+apache2_invoke javascript-common prerm: No action required
+caroline@tesla:~$ sudo apt-get update
+Atingido:1 http://br.archive.ubuntu.com/ubuntu bionic InRelease
+Ign:2 http://dl.google.com/linux/chrome/deb stable InRelease                   
+Obter:3 http://br.archive.ubuntu.com/ubuntu bionic-updates InRelease [88,7 kB] 
+Atingido:4 https://dl.yarnpkg.com/debian stable InRelease                      
+Atingido:5 https://download.docker.com/linux/ubuntu bionic InRelease           
+Obter:6 http://br.archive.ubuntu.com/ubuntu bionic-backports InRelease [74,6 kB]
+Atingido:7 http://dl.google.com/linux/chrome/deb stable Release                
+Obter:8 http://security.ubuntu.com/ubuntu bionic-security InRelease [88,7 kB]  
+Obter:9 http://br.archive.ubuntu.com/ubuntu bionic-updates/main amd64 DEP-11 Metadata [282 kB]
+Obter:11 http://br.archive.ubuntu.com/ubuntu bionic-updates/main DEP-11 48x48 Icons [66,7 kB]
+Obter:12 http://br.archive.ubuntu.com/ubuntu bionic-updates/main DEP-11 64x64 Icons [134 kB]
+Obter:13 http://br.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 DEP-11 Metadata [250 kB]
+Obter:14 http://security.ubuntu.com/ubuntu bionic-security/main amd64 DEP-11 Metadata [22,7 kB]
+Obter:15 http://security.ubuntu.com/ubuntu bionic-security/main DEP-11 48x48 Icons [10,4 kB]
+Obter:16 http://security.ubuntu.com/ubuntu bionic-security/main DEP-11 64x64 Icons [31,7 kB]
+Obter:17 http://br.archive.ubuntu.com/ubuntu bionic-updates/universe DEP-11 48x48 Icons [207 kB]
+Obter:18 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 DEP-11 Metadata [41,3 kB]
+Obter:19 http://security.ubuntu.com/ubuntu bionic-security/universe DEP-11 48x48 Icons [16,4 kB]
+Obter:20 http://security.ubuntu.com/ubuntu bionic-security/universe DEP-11 64x64 Icons [102 kB]
+Obter:21 http://br.archive.ubuntu.com/ubuntu bionic-updates/universe DEP-11 64x64 Icons [441 kB]
+Obter:22 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 DEP-11 Metadata [2.464 B]
+Obter:23 http://br.archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 DEP-11 Metadata [2.468 B]
+Obter:24 http://br.archive.ubuntu.com/ubuntu bionic-backports/universe amd64 DEP-11 Metadata [7.708 B]
+Baixados 1.870 kB em 3s (734 kB/s)                                        
+Lendo listas de pacotes... Pronto
+caroline@tesla:~$ ls
+'Área de Trabalho'   Modelos                      Vídeos
+ Documentos          Música                       waproject-site
+ Downloads           portuguese_word_embeddings   waproject-site-admin
+ examples.desktop    Público                      waproject-site-api
+ Imagens             snap
+caroline@tesla:~$ pip install gensim==2.0.0
+Collecting gensim==2.0.0
+Collecting scipy>=0.7.0 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/1d/f6/7c16d60aeb3694e5611976cb4f1eaf1c6b7f1e7c55771d691013405a02ea/scipy-1.2.2-cp27-cp27mu-manylinux1_x86_64.whl
+Collecting six>=1.5.0 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/73/fb/00a976f728d0d1fecfe898238ce23f502a721c0ac0ecfedb80e0d88c64e9/six-1.12.0-py2.py3-none-any.whl
+Collecting numpy>=1.3 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/1f/c7/198496417c9c2f6226616cff7dedf2115a4f4d0276613bab842ec8ac1e23/numpy-1.16.4-cp27-cp27mu-manylinux1_x86_64.whl
+Collecting smart-open>=1.2.1 (from gensim==2.0.0)
+Collecting bz2file (from smart-open>=1.2.1->gensim==2.0.0)
+Collecting boto>=2.32 (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/23/10/c0b78c27298029e4454a472a1919bde20cb182dab1662cec7f2ca1dcc523/boto-2.49.0-py2.py3-none-any.whl
+Collecting requests (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/51/bd/23c926cd341ea6b7dd0b2a00aba99ae0f828be89d72b2190f27c11d4b7fb/requests-2.22.0-py2.py3-none-any.whl
+Collecting boto3 (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/df/2a/e77374950632d42b36d62a74ec15e56dc1ffabab15be6fc18395d9136b6d/boto3-1.9.197-py2.py3-none-any.whl
+Collecting urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/e6/60/247f23a7121ae632d62811ba7f273d0e58972d75e58a94d329d51550a47d/urllib3-1.25.3-py2.py3-none-any.whl
+Collecting certifi>=2017.4.17 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/69/1b/b853c7a9d4f6a6d00749e94eb6f3a041e342a885b87340b79c1ef73e3a78/certifi-2019.6.16-py2.py3-none-any.whl
+Collecting chardet<3.1.0,>=3.0.2 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl
+Collecting idna<2.9,>=2.5 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/14/2c/cd551d81dbe15200be1cf41cd03869a46fe7226e7450af7a6545bfc474c9/idna-2.8-py2.py3-none-any.whl
+Collecting jmespath<1.0.0,>=0.7.1 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/83/94/7179c3832a6d45b266ddb2aac329e101367fbdb11f425f13771d27f225bb/jmespath-0.9.4-py2.py3-none-any.whl
+Collecting botocore<1.13.0,>=1.12.197 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/7e/3e/ba5f2c7f1ca24c128401efd364c9a5231f411ec83328659c9a0321d82d45/botocore-1.12.197-py2.py3-none-any.whl
+Collecting s3transfer<0.3.0,>=0.2.0 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/16/8a/1fc3dba0c4923c2a76e1ff0d52b305c44606da63f718d14d3231e21c51b0/s3transfer-0.2.1-py2.py3-none-any.whl
+Collecting docutils<0.15,>=0.10 (from botocore<1.13.0,>=1.12.197->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/50/09/c53398e0005b11f7ffb27b7aa720c617aba53be4fb4f4f3f06b9b5c60f28/docutils-0.14-py2-none-any.whl
+Collecting python-dateutil<3.0.0,>=2.1; python_version >= "2.7" (from botocore<1.13.0,>=1.12.197->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/41/17/c62faccbfbd163c7f57f3844689e3a78bae1f403648a6afb1d0866d87fbb/python_dateutil-2.8.0-py2.py3-none-any.whl
+Collecting futures<4.0.0,>=2.2.0; python_version == "2.6" or python_version == "2.7" (from s3transfer<0.3.0,>=0.2.0->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/d8/a6/f46ae3f1da0cd4361c344888f59ec2f5785e69c872e175a748ef6071cdb5/futures-3.3.0-py2-none-any.whl
+Installing collected packages: numpy, scipy, six, bz2file, boto, urllib3, certifi, chardet, idna, requests, jmespath, docutils, python-dateutil, botocore, futures, s3transfer, boto3, smart-open, gensim
+Successfully installed boto-2.49.0 boto3-1.9.197 botocore-1.12.197 bz2file-0.98 certifi-2019.6.16 chardet-3.0.4 docutils-0.14 futures-3.3.0 gensim-2.3.0 idna-2.8 jmespath-0.9.4 numpy-1.16.4 python-dateutil-2.8.0 requests-2.22.0 s3transfer-0.2.1 scipy-1.2.2 six-1.12.0 smart-open-1.8.4 urllib3-1.25.3
+caroline@tesla:~$ python
+Python 2.7.15+ (default, Nov 27 2018, 23:36:35) 
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from gensim.models import KeyedVectors
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/__init__.py", line 6, in <module>
+    from gensim import parsing, matutils, interfaces, corpora, models, similarities, summarization
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/parsing/__init__.py", line 7, in <module>
+    from .preprocessing import *
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/parsing/preprocessing.py", line 10, in <module>
+    from gensim import utils
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/utils.py", line 40, in <module>
+    import numpy as np
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/core/__init__.py", line 91, in <module>
+    raise ImportError(msg.format(path))
+ImportError: Something is wrong with the numpy installation. While importing we detected an older version of numpy in ['/home/caroline/.local/lib/python2.7/site-packages/numpy']. One method of fixing this is to repeatedly uninstall numpy until none is found, then reinstall this version.
+>>> 
+KeyboardInterrupt
+>>> quit()
+caroline@tesla:~$ sudo apt install python-numpy
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+python-numpy is already the newest version (1:1.13.3-2ubuntu1).
+0 pacotes atualizados, 0 pacotes novos instalados, 0 a serem removidos e 1 não atualizados.
+caroline@tesla:~$ python
+Python 2.7.15+ (default, Nov 27 2018, 23:36:35) 
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/core/__init__.py", line 91, in <module>
+    raise ImportError(msg.format(path))
+ImportError: Something is wrong with the numpy installation. While importing we detected an older version of numpy in ['/home/caroline/.local/lib/python2.7/site-packages/numpy']. One method of fixing this is to repeatedly uninstall numpy until none is found, then reinstall this version.
+>>> quit()
+caroline@tesla:~$ sudo apt install python3-numpy
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+Pacotes sugeridos:
+  gfortran python-numpy-doc python3-nose python3-numpy-dbg
+Os NOVOS pacotes a seguir serão instalados:
+  python3-numpy
+0 pacotes atualizados, 1 pacotes novos instalados, 0 a serem removidos e 1 não atualizados.
+É preciso baixar 1.943 kB de arquivos.
+Depois desta operação, 10,9 MB adicionais de espaço em disco serão usados.
+Obter:1 http://br.archive.ubuntu.com/ubuntu bionic/main amd64 python3-numpy amd64 1:1.13.3-2ubuntu1 [1.943 kB]
+Baixados 1.943 kB em 1s (3.036 kB/s)    
+A seleccionar pacote anteriormente não seleccionado python3-numpy.
+(Lendo banco de dados ... 185753 ficheiros e directórios actualmente instalados.)
+A preparar para desempacotar .../python3-numpy_1%3a1.13.3-2ubuntu1_amd64.deb ...
+A descompactar python3-numpy (1:1.13.3-2ubuntu1) ...
+Configurando python3-numpy (1:1.13.3-2ubuntu1) ...
+A processar 'triggers' para man-db (2.8.3-2ubuntu0.1) ...
+caroline@tesla:~$ python
+Python 2.7.15+ (default, Nov 27 2018, 23:36:35) 
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/core/__init__.py", line 91, in <module>
+    raise ImportError(msg.format(path))
+ImportError: Something is wrong with the numpy installation. While importing we detected an older version of numpy in ['/home/caroline/.local/lib/python2.7/site-packages/numpy']. One method of fixing this is to repeatedly uninstall numpy until none is found, then reinstall this version.
+>>> quit()
+caroline@tesla:~$ python -c "import numpy; print(numpy.__version__)"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/core/__init__.py", line 91, in <module>
+    raise ImportError(msg.format(path))
+ImportError: Something is wrong with the numpy installation. While importing we detected an older version of numpy in ['/home/caroline/.local/lib/python2.7/site-packages/numpy']. One method of fixing this is to repeatedly uninstall numpy until none is found, then reinstall this version.
+caroline@tesla:~$ pip uninstall --yes numpy
+Uninstalling numpy-1.16.4:
+  Successfully uninstalled numpy-1.16.4
+caroline@tesla:~$ pip3 uninstall --yes numpy
+Uninstalling numpy-1.13.1:
+  Successfully uninstalled numpy-1.13.1
+caroline@tesla:~$ $ sudo apt install python-numpy
+$: comando não encontrado
+caroline@tesla:~$ sudo apt install python-numpy
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+python-numpy is already the newest version (1:1.13.3-2ubuntu1).
+0 pacotes atualizados, 0 pacotes novos instalados, 0 a serem removidos e 1 não atualizados.
+caroline@tesla:~$ sudo apt install python-numpy
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+python-numpy is already the newest version (1:1.13.3-2ubuntu1).
+0 pacotes atualizados, 0 pacotes novos instalados, 0 a serem removidos e 1 não atualizados.
+caroline@tesla:~$ sudo apt update
+Atingido:1 http://br.archive.ubuntu.com/ubuntu bionic InRelease
+Ign:2 http://dl.google.com/linux/chrome/deb stable InRelease                   
+Atingido:3 http://br.archive.ubuntu.com/ubuntu bionic-updates InRelease        
+Atingido:4 https://download.docker.com/linux/ubuntu bionic InRelease           
+Atingido:5 https://dl.yarnpkg.com/debian stable InRelease                      
+Atingido:6 http://br.archive.ubuntu.com/ubuntu bionic-backports InRelease      
+Atingido:7 http://security.ubuntu.com/ubuntu bionic-security InRelease         
+Atingido:8 http://dl.google.com/linux/chrome/deb stable Release                
+Lendo listas de pacotes... Pronto                         
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+1 package can be upgraded. Run 'apt list --upgradable' to see it.
+caroline@tesla:~$ apt list --upgradable
+Listing... Pronto
+ubuntu-desktop/bionic-updates 1.417.2 amd64 [upgradable from: 1.417.1]
+N: There are 2 additional versions. Please use the '-a' switch to see them.
+caroline@tesla:~$ -a
+-a: comando não encontrado
+caroline@tesla:~$ apt list --upgradable -a
+Listing... Pronto
+ubuntu-desktop/bionic-updates 1.417.2 amd64 [upgradable from: 1.417.1]
+ubuntu-desktop/now 1.417.1 amd64 [installed,upgradable to: 1.417.2]
+ubuntu-desktop/bionic 1.417 amd64
+
+caroline@tesla:~$ sudo apt upgrade
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+Calculando atualização... Pronto
+Os NOVOS pacotes a seguir serão instalados:
+  xdg-desktop-portal xdg-desktop-portal-gtk
+Os pacotes a seguir serão atualizados:
+  ubuntu-desktop
+1 pacotes atualizados, 2 pacotes novos instalados, 0 a serem removidos e 0 não atualizados.
+É preciso baixar 309 kB de arquivos.
+Depois desta operação, 1.694 kB adicionais de espaço em disco serão usados.
+Você quer continuar? [S/n] s
+Obter:1 http://br.archive.ubuntu.com/ubuntu bionic-updates/main amd64 ubuntu-desktop amd64 1.417.2 [3.760 B]
+Obter:2 http://br.archive.ubuntu.com/ubuntu bionic-updates/main amd64 xdg-desktop-portal amd64 1.0.3-0ubuntu0.2 [175 kB]
+Obter:3 http://br.archive.ubuntu.com/ubuntu bionic-updates/main amd64 xdg-desktop-portal-gtk amd64 1.0.2-0ubuntu1.1 [130 kB]
+Baixados 309 kB em 0s (769 kB/s)              
+(Lendo banco de dados ... 186137 ficheiros e directórios actualmente instalados.)
+A preparar para desempacotar .../ubuntu-desktop_1.417.2_amd64.deb ...
+A descompactar ubuntu-desktop (1.417.2) sobre (1.417.1) ...
+A seleccionar pacote anteriormente não seleccionado xdg-desktop-portal.
+A preparar para desempacotar .../xdg-desktop-portal_1.0.3-0ubuntu0.2_amd64.deb ...
+A descompactar xdg-desktop-portal (1.0.3-0ubuntu0.2) ...
+A seleccionar pacote anteriormente não seleccionado xdg-desktop-portal-gtk.
+A preparar para desempacotar .../xdg-desktop-portal-gtk_1.0.2-0ubuntu1.1_amd64.deb ...
+A descompactar xdg-desktop-portal-gtk (1.0.2-0ubuntu1.1) ...
+A processar 'triggers' para mime-support (3.60ubuntu1) ...
+A processar 'triggers' para desktop-file-utils (0.23-1ubuntu3.18.04.2) ...
+Configurando ubuntu-desktop (1.417.2) ...
+A processar 'triggers' para gnome-menus (3.13.3-11ubuntu1.1) ...
+Configurando xdg-desktop-portal (1.0.3-0ubuntu0.2) ...
+Configurando xdg-desktop-portal-gtk (1.0.2-0ubuntu1.1) ...
+caroline@tesla:~$ sudo apt update
+Atingido:1 https://dl.yarnpkg.com/debian stable InRelease
+Atingido:2 http://br.archive.ubuntu.com/ubuntu bionic InRelease                
+Atingido:3 https://download.docker.com/linux/ubuntu bionic InRelease           
+Atingido:4 http://br.archive.ubuntu.com/ubuntu bionic-updates InRelease        
+Ign:5 http://dl.google.com/linux/chrome/deb stable InRelease                   
+Atingido:6 http://br.archive.ubuntu.com/ubuntu bionic-backports InRelease      
+Atingido:7 http://security.ubuntu.com/ubuntu bionic-security InRelease         
+Atingido:8 http://dl.google.com/linux/chrome/deb stable Release                
+Lendo listas de pacotes... Pronto                                              
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+All packages are up to date.
+caroline@tesla:~$ sudo apt install python-numpy
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+python-numpy is already the newest version (1:1.13.3-2ubuntu1).
+0 pacotes atualizados, 0 pacotes novos instalados, 0 a serem removidos e 0 não atualizados.
+caroline@tesla:~$ sudo apt-get install python-numpy
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+python-numpy is already the newest version (1:1.13.3-2ubuntu1).
+0 pacotes atualizados, 0 pacotes novos instalados, 0 a serem removidos e 0 não atualizados.
+caroline@tesla:~$ python -c "import numpy; print(numpy.__version__)"
+1.13.3
+caroline@tesla:~$ pip install gensim==2.0.0
+Collecting gensim==2.0.0
+Collecting scipy>=0.7.0 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/1d/f6/7c16d60aeb3694e5611976cb4f1eaf1c6b7f1e7c55771d691013405a02ea/scipy-1.2.2-cp27-cp27mu-manylinux1_x86_64.whl
+Collecting six>=1.5.0 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/73/fb/00a976f728d0d1fecfe898238ce23f502a721c0ac0ecfedb80e0d88c64e9/six-1.12.0-py2.py3-none-any.whl
+Collecting numpy>=1.3 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/1f/c7/198496417c9c2f6226616cff7dedf2115a4f4d0276613bab842ec8ac1e23/numpy-1.16.4-cp27-cp27mu-manylinux1_x86_64.whl
+Collecting smart-open>=1.2.1 (from gensim==2.0.0)
+Collecting bz2file (from smart-open>=1.2.1->gensim==2.0.0)
+Collecting boto>=2.32 (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/23/10/c0b78c27298029e4454a472a1919bde20cb182dab1662cec7f2ca1dcc523/boto-2.49.0-py2.py3-none-any.whl
+Collecting requests (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/51/bd/23c926cd341ea6b7dd0b2a00aba99ae0f828be89d72b2190f27c11d4b7fb/requests-2.22.0-py2.py3-none-any.whl
+Collecting boto3 (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/df/2a/e77374950632d42b36d62a74ec15e56dc1ffabab15be6fc18395d9136b6d/boto3-1.9.197-py2.py3-none-any.whl
+Collecting urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/e6/60/247f23a7121ae632d62811ba7f273d0e58972d75e58a94d329d51550a47d/urllib3-1.25.3-py2.py3-none-any.whl
+Collecting certifi>=2017.4.17 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/69/1b/b853c7a9d4f6a6d00749e94eb6f3a041e342a885b87340b79c1ef73e3a78/certifi-2019.6.16-py2.py3-none-any.whl
+Collecting chardet<3.1.0,>=3.0.2 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl
+Collecting idna<2.9,>=2.5 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/14/2c/cd551d81dbe15200be1cf41cd03869a46fe7226e7450af7a6545bfc474c9/idna-2.8-py2.py3-none-any.whl
+Collecting jmespath<1.0.0,>=0.7.1 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/83/94/7179c3832a6d45b266ddb2aac329e101367fbdb11f425f13771d27f225bb/jmespath-0.9.4-py2.py3-none-any.whl
+Collecting botocore<1.13.0,>=1.12.197 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/7e/3e/ba5f2c7f1ca24c128401efd364c9a5231f411ec83328659c9a0321d82d45/botocore-1.12.197-py2.py3-none-any.whl
+Collecting s3transfer<0.3.0,>=0.2.0 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/16/8a/1fc3dba0c4923c2a76e1ff0d52b305c44606da63f718d14d3231e21c51b0/s3transfer-0.2.1-py2.py3-none-any.whl
+Collecting docutils<0.15,>=0.10 (from botocore<1.13.0,>=1.12.197->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/50/09/c53398e0005b11f7ffb27b7aa720c617aba53be4fb4f4f3f06b9b5c60f28/docutils-0.14-py2-none-any.whl
+Collecting python-dateutil<3.0.0,>=2.1; python_version >= "2.7" (from botocore<1.13.0,>=1.12.197->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/41/17/c62faccbfbd163c7f57f3844689e3a78bae1f403648a6afb1d0866d87fbb/python_dateutil-2.8.0-py2.py3-none-any.whl
+Collecting futures<4.0.0,>=2.2.0; python_version == "2.6" or python_version == "2.7" (from s3transfer<0.3.0,>=0.2.0->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/d8/a6/f46ae3f1da0cd4361c344888f59ec2f5785e69c872e175a748ef6071cdb5/futures-3.3.0-py2-none-any.whl
+Installing collected packages: numpy, scipy, six, bz2file, boto, urllib3, certifi, chardet, idna, requests, jmespath, docutils, python-dateutil, botocore, futures, s3transfer, boto3, smart-open, gensim
+Successfully installed boto-2.49.0 boto3-1.9.197 botocore-1.12.197 bz2file-0.98 certifi-2019.6.16 chardet-3.0.4 docutils-0.14 futures-3.3.0 gensim-2.3.0 idna-2.8 jmespath-0.9.4 numpy-1.16.4 python-dateutil-2.8.0 requests-2.22.0 s3transfer-0.2.1 scipy-1.2.2 six-1.12.0 smart-open-1.8.4 urllib3-1.25.3
+caroline@tesla:~$ python
+Python 2.7.15+ (default, Nov 27 2018, 23:36:35) 
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from gensim.models import KeyedVectors
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/__init__.py", line 6, in <module>
+    from gensim import parsing, matutils, interfaces, corpora, models, similarities, summarization
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/parsing/__init__.py", line 7, in <module>
+    from .preprocessing import *
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/parsing/preprocessing.py", line 10, in <module>
+    from gensim import utils
+  File "/home/caroline/.local/lib/python2.7/site-packages/gensim/utils.py", line 40, in <module>
+    import numpy as np
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/__init__.py", line 142, in <module>
+    from . import core
+  File "/home/caroline/.local/lib/python2.7/site-packages/numpy/core/__init__.py", line 91, in <module>
+    raise ImportError(msg.format(path))
+ImportError: Something is wrong with the numpy installation. While importing we detected an older version of numpy in ['/home/caroline/.local/lib/python2.7/site-packages/numpy']. One method of fixing this is to repeatedly uninstall numpy until none is found, then reinstall this version.
+>>> 
+KeyboardInterrupt
+>>> 
+KeyboardInterrupt
+>>> quit()
+caroline@tesla:~$ pip3 uninstall --yes numpy
+Not uninstalling numpy at /usr/lib/python3/dist-packages, outside environment /usr
+caroline@tesla:~$ pip uninstall --yes numpy
+Uninstalling numpy-1.16.4:
+  Successfully uninstalled numpy-1.16.4
+caroline@tesla:~$ sudo apt install python-numpy
+Lendo listas de pacotes... Pronto
+Construindo árvore de dependências       
+Lendo informação de estado... Pronto
+python-numpy is already the newest version (1:1.13.3-2ubuntu1).
+0 pacotes atualizados, 0 pacotes novos instalados, 0 a serem removidos e 0 não atualizados.
+caroline@tesla:~$ python -c "import numpy; print(numpy.__version__)"
+1.13.3
+caroline@tesla:~$ python -c "import numpy; print(numpy.__version__)"
+1.13.3
+caroline@tesla:~$ pip uninstall --yes numpy
+Uninstalling numpy-1.13.1:
+  Successfully uninstalled numpy-1.13.1
+caroline@tesla:~$ pip install numpy
+Collecting numpy
+  Using cached https://files.pythonhosted.org/packages/1f/c7/198496417c9c2f6226616cff7dedf2115a4f4d0276613bab842ec8ac1e23/numpy-1.16.4-cp27-cp27mu-manylinux1_x86_64.whl
+Installing collected packages: numpy
+Successfully installed numpy-1.16.4
+caroline@tesla:~$ python -c "import numpy; print(numpy.__version__)"
+1.16.4
+caroline@tesla:~$ pip install gensim==2.0.0
+Collecting gensim==2.0.0
+Collecting scipy>=0.7.0 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/1d/f6/7c16d60aeb3694e5611976cb4f1eaf1c6b7f1e7c55771d691013405a02ea/scipy-1.2.2-cp27-cp27mu-manylinux1_x86_64.whl
+Collecting six>=1.5.0 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/73/fb/00a976f728d0d1fecfe898238ce23f502a721c0ac0ecfedb80e0d88c64e9/six-1.12.0-py2.py3-none-any.whl
+Collecting numpy>=1.3 (from gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/1f/c7/198496417c9c2f6226616cff7dedf2115a4f4d0276613bab842ec8ac1e23/numpy-1.16.4-cp27-cp27mu-manylinux1_x86_64.whl
+Collecting smart-open>=1.2.1 (from gensim==2.0.0)
+Collecting bz2file (from smart-open>=1.2.1->gensim==2.0.0)
+Collecting boto>=2.32 (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/23/10/c0b78c27298029e4454a472a1919bde20cb182dab1662cec7f2ca1dcc523/boto-2.49.0-py2.py3-none-any.whl
+Collecting requests (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/51/bd/23c926cd341ea6b7dd0b2a00aba99ae0f828be89d72b2190f27c11d4b7fb/requests-2.22.0-py2.py3-none-any.whl
+Collecting boto3 (from smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/df/2a/e77374950632d42b36d62a74ec15e56dc1ffabab15be6fc18395d9136b6d/boto3-1.9.197-py2.py3-none-any.whl
+Collecting urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/e6/60/247f23a7121ae632d62811ba7f273d0e58972d75e58a94d329d51550a47d/urllib3-1.25.3-py2.py3-none-any.whl
+Collecting certifi>=2017.4.17 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/69/1b/b853c7a9d4f6a6d00749e94eb6f3a041e342a885b87340b79c1ef73e3a78/certifi-2019.6.16-py2.py3-none-any.whl
+Collecting chardet<3.1.0,>=3.0.2 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl
+Collecting idna<2.9,>=2.5 (from requests->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/14/2c/cd551d81dbe15200be1cf41cd03869a46fe7226e7450af7a6545bfc474c9/idna-2.8-py2.py3-none-any.whl
+Collecting jmespath<1.0.0,>=0.7.1 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/83/94/7179c3832a6d45b266ddb2aac329e101367fbdb11f425f13771d27f225bb/jmespath-0.9.4-py2.py3-none-any.whl
+Collecting botocore<1.13.0,>=1.12.197 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/7e/3e/ba5f2c7f1ca24c128401efd364c9a5231f411ec83328659c9a0321d82d45/botocore-1.12.197-py2.py3-none-any.whl
+Collecting s3transfer<0.3.0,>=0.2.0 (from boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/16/8a/1fc3dba0c4923c2a76e1ff0d52b305c44606da63f718d14d3231e21c51b0/s3transfer-0.2.1-py2.py3-none-any.whl
+Collecting docutils<0.15,>=0.10 (from botocore<1.13.0,>=1.12.197->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/50/09/c53398e0005b11f7ffb27b7aa720c617aba53be4fb4f4f3f06b9b5c60f28/docutils-0.14-py2-none-any.whl
+Collecting python-dateutil<3.0.0,>=2.1; python_version >= "2.7" (from botocore<1.13.0,>=1.12.197->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/41/17/c62faccbfbd163c7f57f3844689e3a78bae1f403648a6afb1d0866d87fbb/python_dateutil-2.8.0-py2.py3-none-any.whl
+Collecting futures<4.0.0,>=2.2.0; python_version == "2.6" or python_version == "2.7" (from s3transfer<0.3.0,>=0.2.0->boto3->smart-open>=1.2.1->gensim==2.0.0)
+  Using cached https://files.pythonhosted.org/packages/d8/a6/f46ae3f1da0cd4361c344888f59ec2f5785e69c872e175a748ef6071cdb5/futures-3.3.0-py2-none-any.whl
+Installing collected packages: numpy, scipy, six, bz2file, boto, urllib3, certifi, chardet, idna, requests, jmespath, docutils, python-dateutil, botocore, futures, s3transfer, boto3, smart-open, gensim
+Successfully installed boto-2.49.0 boto3-1.9.197 botocore-1.12.197 bz2file-0.98 certifi-2019.6.16 chardet-3.0.4 docutils-0.14 futures-3.3.0 gensim-2.3.0 idna-2.8 jmespath-0.9.4 numpy-1.16.4 python-dateutil-2.8.0 requests-2.22.0 s3transfer-0.2.1 scipy-1.2.2 six-1.12.0 smart-open-1.8.4 urllib3-1.25.3
+caroline@tesla:~$ python
+Python 2.7.15+ (default, Nov 27 2018, 23:36:35) 
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from gensim.models import KeyedVectors
+>>> model = KeyedVectors.load_word2vec_format(‘cbow_s50.txt’)
+  File "<stdin>", line 1
+    model = KeyedVectors.load_word2vec_format(‘cbow_s50.txt’)
+                                              ^
+SyntaxError: invalid syntax
+>>> quit()
+caroline@tesla:~$ ls
+'Área de Trabalho'   Modelos                      Vídeos
+ Documentos          Música                       waproject-site
+ Downloads           portuguese_word_embeddings   waproject-site-admin
+ examples.desktop    Público                      waproject-site-api
+ Imagens             snap
+caroline@tesla:~$ cd portuguese_word_embeddings/
+caroline@tesla:~/portuguese_word_embeddings$ ls
+analogies     cbow_s50.txt  LICENSE           requirements.txt        -t
+analogies.py  evaluate.py   preprocessing.py  sentence_similarity
+--br          --lang        README.md         sentence_similarity.py
+caroline@tesla:~/portuguese_word_embeddings$ python
+Python 2.7.15+ (default, Nov 27 2018, 23:36:35) 
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from gensim.models import KeyedVectors
+>>> model = KeyedVectors.load_word2vec_format(‘model.txt’)
+  File "<stdin>", line 1
+    model = KeyedVectors.load_word2vec_format(‘model.txt’)
+                                              ^
+SyntaxError: invalid syntax
+>>> model = KeyedVectors.load_word2vec_format(‘cbow_s50.txt’)
+  File "<stdin>", line 1
+    model = KeyedVectors.load_word2vec_format(‘cbow_s50.txt’)
+                                              ^
+SyntaxError: invalid syntax
+>>> model = KeyedVectors.load_word2vec_format(cbow_s50.txt)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'cbow_s50' is not defined
+>>> model = KeyedVectors.load_word2vec_format('cbow_s50.txt')
+/home/caroline/.local/lib/python2.7/site-packages/smart_open/smart_open_lib.py:398: UserWarning: This function is deprecated, use smart_open.open instead. See the migration notes for details: https://github.com/RaRe-Technologies/smart_open/blob/master/README.rst#migrating-to-the-new-open-function
+  'See the migration notes for details: %s' % _MIGRATION_NOTES_URL
+>>> model['teste']
+array([ 0.066184, -0.241351,  0.074098,  0.095256,  0.328815,  0.444887,
+        0.212839,  0.226351,  0.266563,  0.538785, -0.107048,  0.264954,
+       -0.412093,  0.079404,  0.45781 ,  0.2443  , -0.19329 ,  0.042285,
+       -0.027314,  0.175035, -0.319714,  0.488565, -0.031984,  0.312068,
+        0.427231, -0.02192 ,  0.093675, -0.252333, -0.107619, -0.02222 ,
+        0.099248,  0.123382,  0.464005, -0.138848,  0.100047,  0.420187,
+        0.159133, -0.261898,  0.041417,  0.474442,  0.083101, -0.168923,
+        0.256974, -0.327491,  0.445466, -0.001271, -0.014991,  0.067393,
+       -0.295427,  0.058224], dtype=float32)
+>>> trained_model.similar_by_word('graph')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'trained_model' is not defined
+>>> trained_model.similar_by_word('graph')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'trained_model' is not defined
+>>> trained_model.most_similar(positive=['woman', 'king'], negative=['man'])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'trained_model' is not defined
+>>> model.similar_by_word('graph')
+[(u'wav', 0.785057008266449), (u'mapping', 0.7843801975250244), (u'push', 0.7693891525268555), (u'passport', 0.7686412334442139), (u'x.org', 0.7682638168334961), (u'xsl', 0.7652255892753601), (u'inteligence', 0.7628561854362488), (u'object', 0.7622368335723877), (u'synergy', 0.7608376145362854), (u'unique', 0.7586352825164795)]
+>>> model.similar_by_word('code')
+[(u'panel', 0.7974041700363159), (u'tactical', 0.7811468839645386), (u'weapons', 0.7768245935440063), (u'schedule', 0.7709884643554688), (u'defining', 0.7663034200668335), (u'special', 0.7660316824913025), (u'notes', 0.7650981545448303), (u'fishing', 0.7587693929672241), (u'sires', 0.7555317282676697), (u'command', 0.7531595826148987)]
+>>> model.most_similar(positive=['woman', 'king'], negative=['man'])
+[(u'steel', 0.7277132868766785), (u'white', 0.7182672023773193), (u'sweet', 0.7093344926834106), (u'poor', 0.7068804502487183), (u'estonian', 0.706673800945282), (u"o'donnell", 0.7040413618087769), (u'french', 0.7035051584243774), (u'flowers', 0.7026455998420715), (u'lorelay', 0.7022549510002136), (u'cotton', 0.7012993097305298)]
+>>> 
